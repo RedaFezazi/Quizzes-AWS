@@ -1,0 +1,161 @@
+{
+	"info": {
+		"_postman_id": "388f6cba-3083-450d-8d9a-f8eb37558f95",
+		"name": "Quiz",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "25560766"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"user@example.com\",\r\n  \"password\": \"password123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://otmpf38t62.execute-api.eu-north-1.amazonaws.com/dev/login"
+					},
+					"response": []
+				},
+				{
+					"name": "createProfile",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"user@example.com\",\r\n  \"password\": \"password123\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://otmpf38t62.execute-api.eu-north-1.amazonaws.com/dev/signup"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Quiz",
+			"item": [
+				{
+					"name": "getQuiz",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJpYXQiOjE3MjgwMzQzMTMsImV4cCI6MTcyODEyMDcxM30.birjVrhQJRTct8qps8nH5LiXFavwVA0pZ7fGxFTtHPs"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"user@example.com\",\r\n    \"quizId\": \"9f6022c9-a4d3-4848-921a-75242994a597\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://otmpf38t62.execute-api.eu-north-1.amazonaws.com/dev/quizzes/get-quiz"
+					},
+					"response": []
+				},
+				{
+					"name": "getQuizes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "https://otmpf38t62.execute-api.eu-north-1.amazonaws.com/dev/quizzes/get-quizes"
+					},
+					"response": []
+				},
+				{
+					"name": "createQuiz",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJpYXQiOjE3MjgwMjg2ODAsImV4cCI6MTcyODExNTA4MH0.rs6xruZJrgsy42WDoykTRRjM6p3Ea3ilndcgU-ejwcs"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Gothenburg History Quiz\",\r\n  \"questions\": [\r\n    {\r\n      \"question\": \"When was Gothenburg founded?\",\r\n      \"answer\": \"1621\",\r\n      \"coordinates\": {\r\n        \"longitude\": 11.9746,\r\n        \"latitude\": 57.7089\r\n      }\r\n    },\r\n    {\r\n      \"question\": \"What is the name of the main street in Gothenburg?\",\r\n      \"answer\": \"Avenyn\",\r\n      \"coordinates\": {\r\n        \"longitude\": 11.9741,\r\n        \"latitude\": 57.7049\r\n      }\r\n    }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://otmpf38t62.execute-api.eu-north-1.amazonaws.com/dev/quizzes/create"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteQuiz",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJpYXQiOjE3MjgwMzQzMTMsImV4cCI6MTcyODEyMDcxM30.birjVrhQJRTct8qps8nH5LiXFavwVA0pZ7fGxFTtHPs"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \r\n    \"quizId\": \"e9412bd2-d025-4d28-8a91-28399ee18698\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://otmpf38t62.execute-api.eu-north-1.amazonaws.com/dev/quizzes/delete-quiz"
+					},
+					"response": []
+				},
+				{
+					"name": "addQuestion",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJpYXQiOjE3MjgwMjg2ODAsImV4cCI6MTcyODExNTA4MH0.rs6xruZJrgsy42WDoykTRRjM6p3Ea3ilndcgU-ejwcs"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"quizId\": \"8883ac28-6fac-4e62-b2eb-ec0306bf2410\",\r\n  \"newQuestion\": {\r\n    \"question\": \"When was Gothenburg founded?\",\r\n    \"answer\": \"1621\",\r\n    \"coordinates\": {\r\n      \"longitude\": 11.9746,\r\n      \"latitude\": 57.7089\r\n    }\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://otmpf38t62.execute-api.eu-north-1.amazonaws.com/dev/quizzes/add-question"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
