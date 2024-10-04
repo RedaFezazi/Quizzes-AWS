@@ -1,0 +1,110 @@
+service: user-auth-service
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: eu-north-1
+  environment:
+    USER_TABLE: usersTable
+    QUIZZES_TABLE: quizzesTable
+    JWT_SECRET: myproject0
+    JWT_EXPIRATION: "24h"
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource:
+            - "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USER_TABLE}"
+            - "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.QUIZZES_TABLE}"
+
+functions:
+  signUp:
+    handler: functions/Auth/signUp.main
+    events:
+      - http:
+          path: signup
+          method: post
+
+  login:
+    handler: functions/Auth/login.main
+    events:
+      - http:
+          path: login
+          method: post
+
+  createQuiz:
+    handler: functions/Quiz/newQuiz.handler
+    events:
+      - http:
+          path: quizzes/create
+          method: post
+
+  addQuestion:
+    handler: functions/Quiz/addQuestion.handler
+    events:
+      - http:
+          path: quizzes/add-question
+          method: post
+
+  getQuiz:
+    handler: functions/Quiz/getQuiz.handler
+    events:
+      - http:
+          path: quizzes/get-quiz
+          method: post
+
+  getQuizes:
+    handler: functions/Quiz/getQuizes.handler
+    events:
+      - http:
+          path: quizzes/get-quizes
+          method: get
+
+  deleteQuiz:
+    handler: functions/Quiz/deleteQuiz.handler
+    events:
+      - http:
+          path: quizzes/delete-quiz
+          method: delete
+
+resources:
+  Resources:
+    QuizzesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.QUIZZES_TABLE}
+        AttributeDefinitions:
+          - AttributeName: quizId
+            AttributeType: S
+          - AttributeName: email
+            AttributeType: S
+        KeySchema:
+          - AttributeName: quizId
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        GlobalSecondaryIndexes:
+          - IndexName: UserIdIndex
+            KeySchema:
+              - AttributeName: email
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+
+    UsersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.USER_TABLE}
+        AttributeDefinitions:
+          - AttributeName: email
+            AttributeType: S
+        KeySchema:
+          - AttributeName: email
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
